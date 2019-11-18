@@ -1,0 +1,80 @@
+import React, { Component } from "react";
+import { Accordion, Card } from "react-bootstrap";
+import StepCard from "./card";
+
+class Counters extends Component {
+  state = {
+    danceTypes: [
+      { id: 1, name: "Waltz" },
+      { id: 2, name: "Tango" },
+      { id: 3, name: "Quick-step" }
+    ]
+  };
+
+  render() {
+    return (
+      <React.Fragment>
+        <Accordion defaultActiveKey="0">
+          <Card>
+            <Accordion.Toggle as={Card.Header} eventKey="0">
+              Tools
+            </Accordion.Toggle>
+            <Accordion.Collapse eventKey="0">
+              <Card.Body>
+                <Accordion className="Dances">
+                  <Card>
+                    <Accordion.Toggle as={Card.Header} eventKey="0">
+                      Standard
+                    </Accordion.Toggle>
+                    <Accordion.Collapse eventKey="0">
+                      <Card.Body>
+                        <Accordion>
+                          <Card className="CounterRow">
+                            <Accordion.Toggle as={Card.Header} eventKey="0">
+                              Waltz
+                            </Accordion.Toggle>
+                            <Accordion.Collapse eventKey="0">
+                              <Card.Body>
+                                {this.props.waltzSteps.map(step => (
+                                  <StepCard
+                                    id={"#counter" + step.id}
+                                    key={step.id}
+                                    step={step}
+                                    onAddStep={this.props.onAddStep}
+                                    onHighlighted={this.props.onHighlighted}
+                                  />
+                                ))}
+                              </Card.Body>
+                            </Accordion.Collapse>
+                          </Card>
+                          <Card>
+                            <Accordion.Toggle as={Card.Header} eventKey="1">
+                              Tango
+                            </Accordion.Toggle>
+                            <Accordion.Collapse eventKey="1">
+                              <Card.Body>Hello! I'm another body</Card.Body>
+                            </Accordion.Collapse>
+                          </Card>
+                        </Accordion>
+                      </Card.Body>
+                    </Accordion.Collapse>
+                  </Card>
+                  <Card>
+                    <Accordion.Toggle as={Card.Header} eventKey="1">
+                      Latin
+                    </Accordion.Toggle>
+                    <Accordion.Collapse eventKey="1">
+                      <Card.Body>Hello! I'm another body</Card.Body>
+                    </Accordion.Collapse>
+                  </Card>
+                </Accordion>
+              </Card.Body>
+            </Accordion.Collapse>
+          </Card>
+        </Accordion>
+      </React.Fragment>
+    );
+  }
+}
+
+export default Counters;
