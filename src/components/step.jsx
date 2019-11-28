@@ -4,7 +4,7 @@ import Draggable from "react-draggable";
 
 class Step extends Component {
   state = {
-    id: 1,
+    /*     id: 1,
     name: "Basic Forward Step",
     startDegree: 0,
     endDegree: 0,
@@ -12,7 +12,7 @@ class Step extends Component {
     forwardDistance: 1,
     sidewaysDistance: 1,
     image: "",
-    draggable: false,
+    draggable: false, */
     highlighted: false,
     activeDrags: 0,
     deltaPosition: {
@@ -48,6 +48,13 @@ class Step extends Component {
     this.draggable = draggable;
   }
 
+  handleHighlightedColor(step) {
+    return step.highlighted ? "rgba(244,151,151,0.6)" : "transparent";
+  }
+  /*   handleDisabled = () => {
+    this.setState({ isClicked: !this.state.isClicked });
+  }; */
+
   handleDrag = (e, ui) => {
     const { x, y } = this.state.deltaPosition;
     this.setState({
@@ -56,25 +63,19 @@ class Step extends Component {
         y: y + ui.deltaY
       }
     });
+    console.log(this.state);
   };
-  onStart = () => {
+  handleStart = () => {
     this.setState(prevState => ({
       activeDrags: ++prevState.activeDrags
     }));
   };
 
-  onStop = () => {
+  handleStop = () => {
     this.setState(prevState => ({
       activeDrags: --prevState.activeDrags
     }));
   };
-
-  handleHighlightedColor(step) {
-    return step.highlighted ? "rgba(244,151,151,0.6)" : "transparent";
-  }
-  /*   handleDisabled = () => {
-    this.setState({ isClicked: !this.state.isClicked });
-  }; */
 
   render() {
     const dragHandlers = { onStart: this.onStart, onStop: this.onStop };
@@ -84,6 +85,9 @@ class Step extends Component {
         grid={[25, 25]}
         bounds="parent"
         {...dragHandlers}
+        onDrag={this.handleDrag}
+        onStart={this.handleStart}
+        onStop={this.handleStop}
       >
         <div className="stepBox">
           <Container

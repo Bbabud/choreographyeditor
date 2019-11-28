@@ -5,21 +5,62 @@ import Floor from "./floor";
 import Edit from "./edit";
 import Step from "./step";
 import nextId from "react-id-generator";
+import FolderDirectory from "../files/floor.json";
 
 class LayOut extends Component {
   state = {
     floorWidth: 640,
     floorHeight: 400,
     floorLeft: 155,
-    stepHighlighted: [
-      {
-        id: 0,
-        stepId: ""
-      }
-    ],
     stepCount: 0,
     floorSteps: []
   };
+
+  handleSave = () => {
+    let fs = require("browserify-fs");
+    const data = JSON.stringify(this.state, null, 2);
+    fs.writeFile(FolderDirectory, data, finished);
+
+    function finished(err) {
+      fs.close(FolderDirectory, function() {
+        console.log("wrote the file successfully");
+      });
+      console.log("all set.");
+      console.log(data);
+    }
+  };
+  handleLoad = () => {
+    let fs = require("browserify-fs");
+    fs.readFile(FolderDirectory, "utf-8", function(err, data) {
+      console.log(data);
+
+      const floor = JSON.parse(data);
+      console.log(floor);
+      return floor;
+    });
+  };
+  /*   handleDrag = (id, e, ui) => {
+    console.log(id);
+    const { x, y } = this.floorSteps.filter(
+      step => "#floor" + step.id === id
+    ).deltaPosition;
+    if (id.includes("floor"))
+      return this.setState(prevState => ({
+        floorSteps: prevState.floorSteps.map(step =>
+          "#floor" + step.id === id
+            ? {
+                ...step,
+                deltaPosition: {
+                  x: x + ui.deltaX,
+                  y: y + ui.deltaY
+                }
+              }
+            : step
+        )
+      }));
+    else return null;
+  }; */
+
   handleHighlighted = id => {
     if (id.includes("floor"))
       return this.setState(prevState => ({
@@ -134,13 +175,11 @@ class LayOut extends Component {
   };
 
   render() {
-    /* const { counters, onReset, onIncrement, onDelete } = this.props; */
     return (
       <Row className="Surface">
         <Col className="Col-1">
           {" "}
           <Counters
-            waltzSteps={this.props.waltzSteps}
             onAddStep={this.handleAddStep}
             onHighlighted={this.handleHighlighted}
           />
@@ -166,6 +205,8 @@ class LayOut extends Component {
             onClearFloor={this.handleClearFloor}
             onWidthSelect={this.handleWidthSelect}
             onHeightSelect={this.handleHeightSelect}
+            onSave={this.handleSave}
+            onLoad={this.handleLoad}
           />
         </Col>
       </Row>

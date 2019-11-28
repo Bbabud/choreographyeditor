@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Container, Navbar } from "react-bootstrap";
 
+//created by me, switched to bootsrap's own later on
+
 class Collapsible extends Component {
   constructor(props) {
     super(props);

@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import { Container } from "react-bootstrap";
 
 class Load extends Component {
+  fileSelectedHandler = event => {
+    console.log(event.target.files[0]);
+  };
+
   render() {
     return (
       <Container className="input-group">
@@ -9,10 +13,10 @@ class Load extends Component {
           <input
             type="file"
             className="custom-file-input"
-            id="inputGroupFile04"
-            aria-describedby="inputGroupFileAddon04"
+            id="inputGroupFile"
+            aria-describedby="inputGroupFileAddon"
           />
-          <label className="custom-file-label" for="inputGroupFile04">
+          <label className="custom-file-label" for="inputGroupFile">
             Choose file
           </label>
         </Container>

@@ -34,6 +34,7 @@ class StepCard extends Component {
             }}
             onClick={() => {
               this.props.onAddStep(this.props.step, this.props.id);
+              console.log(this.props.step);
             }}
           >
             Add step

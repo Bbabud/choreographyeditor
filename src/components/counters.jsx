@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Accordion, Card } from "react-bootstrap";
 import StepCard from "./card";
+import WaltzSteps from "../files/waltzSteps.json";
 
 class Counters extends Component {
   state = {
@@ -35,7 +36,7 @@ class Counters extends Component {
                             </Accordion.Toggle>
                             <Accordion.Collapse eventKey="0">
                               <Card.Body>
-                                {this.props.waltzSteps.map(step => (
+                                {WaltzSteps.steps.map(step => (
                                   <StepCard
                                     id={"#counter" + step.id}
                                     key={step.id}

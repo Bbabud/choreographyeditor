@@ -5,16 +5,16 @@
 }
 
 body {
-  background-color: #162d3d;
+  background-color: #dcdcdc;
 }
 
 .Surface {
-  background-color: #162d3d;
+  background-color: #dcdcdc;
   position: absolute;
   max-height: 95vh;
   height: 95vh;
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto auto;
   padding: 0;
 }
 

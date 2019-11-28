@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Container, Button, Card, Accordion, Alert } from "react-bootstrap";
+import Load from "./load";
 
 class Edit extends Component {
   state = {
@@ -23,6 +24,7 @@ class Edit extends Component {
         </Alert>
       );
   }
+
   render() {
     return (
       <Container>
@@ -92,6 +94,18 @@ class Edit extends Component {
                           className="btn btn-secondary btn-sm"
                         >
                           ClearFloor
+                        </Button>{" "}
+                        <Button
+                          onClick={this.props.onSave}
+                          className="btn btn-secondary btn-sm"
+                        >
+                          Save
+                        </Button>{" "}
+                        <Button
+                          onClick={this.props.onLoad}
+                          className="btn btn-secondary btn-sm"
+                        >
+                          Load
                         </Button>{" "}
                         <Alert style={{ margin: "5px" }} variant="dark">
                           Set the size of the floor in meters!
@@ -180,6 +194,17 @@ class Edit extends Component {
                             </button>
                           </div>
                         </div>
+                      </Card.Body>
+                    </Accordion.Collapse>
+                  </Card>{" "}
+                  <Card>
+                    <Accordion.Toggle as={Card.Header} eventKey="2">
+                      File
+                    </Accordion.Toggle>
+                    <Accordion.Collapse eventKey="2">
+                      <Card.Body>
+                        {" "}
+                        <Load />
                       </Card.Body>
                     </Accordion.Collapse>
                   </Card>
