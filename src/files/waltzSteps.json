@@ -1,0 +1,86 @@
+{
+  "id": 1,
+  "name": "Waltz",
+  "steps": [
+    {
+      "id": 1,
+      "name": "Basic Forward Step",
+      "startDegree": 0,
+      "endDegree": 0,
+      "turnDegree": 0,
+      "forwardDistance": 1,
+      "sidewaysDistance": 1,
+      "draggable": "false"
+    },
+    {
+      "id": 2,
+      "name": "Basic Backward Step",
+      "startDegree": 0,
+      "endDegree": 0,
+      "turnDegree": 0,
+      "forwardDistance": -1,
+      "sidewaysDistance": -1,
+      "draggable": "false"
+    },
+    {
+      "id": 3,
+      "name": "Basic Forward Step",
+      "startDegree": 0,
+      "endDegree": 0,
+      "turnDegree": 0,
+      "forwardDistance": 1,
+      "sidewaysDistance": 1,
+      "draggable": "false"
+    },
+    {
+      "id": 4,
+      "name": "Basic Backward Step",
+      "startDegree": 0,
+      "endDegree": 0,
+      "turnDegree": 0,
+      "forwardDistance": -1,
+      "sidewaysDistance": -1,
+      "draggable": "false"
+    },
+    {
+      "id": 5,
+      "name": "Basic Forward Step",
+      "startDegree": 0,
+      "endDegree": 0,
+      "turnDegree": 0,
+      "forwardDistance": 1,
+      "sidewaysDistance": 1,
+      "draggable": "false"
+    },
+    {
+      "id": 6,
+      "name": "Basic Backward Step",
+      "startDegree": 0,
+      "endDegree": 0,
+      "turnDegree": 0,
+      "forwardDistance": -1,
+      "sidewaysDistance": -1,
+      "draggable": "false"
+    },
+    {
+      "id": 7,
+      "name": "Basic Forward Step",
+      "startDegree": 0,
+      "endDegree": 0,
+      "turnDegree": 0,
+      "forwardDistance": 1,
+      "sidewaysDistance": 1,
+      "draggable": "false"
+    },
+    {
+      "id": 8,
+      "name": "Basic Backward Step",
+      "startDegree": 0,
+      "endDegree": 0,
+      "turnDegree": 0,
+      "forwardDistance": -1,
+      "sidewaysDistance": -1,
+      "draggable": "false"
+    }
+  ]
+}

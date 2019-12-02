@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-/* import Counter from "./counter"; */
-import { Navbar, Container } from "react-bootstrap";
-import Collapsible from "./collapsible";
-import Step from "./steps";
-import Draggable from "react-draggable";
+import { Accordion, Card } from "react-bootstrap";
+import StepCard from "./card";
+import WaltzSteps from "../files/waltzSteps.json";
+import Images from "../files/images";
 
-import Board from "./board";
 
 class Counters extends Component {
   state = {
@@ -15,50 +13,76 @@ class Counters extends Component {
       { id: 3, name: "Quick-step" }
     ]
   };
-  constructor(props) {
-    super(props);
-  }
-  togglePanel(e) {
-    this.togglePanel.bind(this);
-    this.setState({ open: !this.state.open });
-  }
+
+
+  handleImage = name => {
+    return Images.adata.Waltz.filter(step => step.name === name)[0].image;
+  };
+
   render() {
-    /* const { counters, onDelete, onReset, onIncrement } = this.props; */
     return (
-      <div>
-        <Navbar expand="lg" variant="light" bg="warning">
-          <Navbar.Brand href="#">Eszközök</Navbar.Brand>
-        </Navbar>
-        <Collapsible title="Standard" className="Dances">
-          <Container className="TypeGroups">
-            <Collapsible title={this.state.danceTypes[0].name}>
-              <Board id="board-1" className="Waltz">
-                {this.props.waltzSteps.map(step => (
-                  <Step
-                    id={"#element" + step.id}
-                    draggable="true"
-                    key={step.id}
-                    step={step}
-                  />
-                ))}
-              </Board>
-            </Collapsible>
-            <Collapsible title={this.state.danceTypes[1].name} />
-            <Collapsible title={this.state.danceTypes[2].name} />
-          </Container>
-        </Collapsible>
-        {/*         <button onClick={onReset} className="btn btn-primary btn-sm m-2">
-          Reset
-        </button>
-        {counters.map(counter => (
-          <Counter
-            key={counter.id}
-            onDelete={onDelete}
-            onIncrement={onIncrement}
-            counter={counter}
-          /> 
-        ))}*/}
-      </div>
+      <React.Fragment>
+        <Accordion defaultActiveKey="0">
+          <Card>
+            <Accordion.Toggle as={Card.Header} eventKey="0">
+              Tools
+            </Accordion.Toggle>
+            <Accordion.Collapse eventKey="0">
+              <Card.Body>
+                <Accordion className="Dances" defaultActiveKey="0">
+                  <Card>
+                    <Accordion.Toggle as={Card.Header} eventKey="0">
+                      Standard
+                    </Accordion.Toggle>
+                    <Accordion.Collapse eventKey="0">
+                      <Card.Body>
+                        <Accordion defaultActiveKey="0">
+                          <Card className="CounterRow">
+                            <Accordion.Toggle as={Card.Header} eventKey="0">
+                              Waltz
+                            </Accordion.Toggle>
+                            <Accordion.Collapse eventKey="0">
+                              <Card.Body>
+                                {WaltzSteps.steps.map(step => (
+                                  <StepCard
+                                    id={"#counter" + step.id}
+                                    key={step.id}
+                                    image={this.handleImage(step.name)}
+                                    step={step}
+                                    onAddStep={this.props.onAddStep}
+                                    onHighlighted={this.props.onHighlighted}
+                                  />
+                                ))}
+                              </Card.Body>
+                            </Accordion.Collapse>
+                          </Card>
+                          <Card>
+                            <Accordion.Toggle as={Card.Header} eventKey="1">
+                              Tango
+                            </Accordion.Toggle>
+                            <Accordion.Collapse eventKey="1">
+                              <Card.Body>Hello! I'm another body</Card.Body>
+                            </Accordion.Collapse>
+                          </Card>
+                        </Accordion>
+                      </Card.Body>
+                    </Accordion.Collapse>
+                  </Card>
+                  <Card>
+                    <Accordion.Toggle as={Card.Header} eventKey="1">
+                      Latin
+                    </Accordion.Toggle>
+                    <Accordion.Collapse eventKey="1">
+                      <Card.Body>Hello! I'm another body</Card.Body>
+                    </Accordion.Collapse>
+                  </Card>
+                </Accordion>
+              </Card.Body>
+            </Accordion.Collapse>
+          </Card>
+        </Accordion>
+      </React.Fragment>
+
     );
   }
 }
