@@ -10,7 +10,6 @@
       "turnDegree": 0,
       "forwardDistance": 1,
       "sidewaysDistance": 1,
-      "image": "require(\"../assets/BasicForwardStep.png\")",
       "draggable": "false"
     },
     {
@@ -21,7 +20,6 @@
       "turnDegree": 0,
       "forwardDistance": -1,
       "sidewaysDistance": -1,
-      "image": "require(\"../assets/BasicBackWardStep.png\")",
       "draggable": "false"
     },
     {
@@ -32,7 +30,6 @@
       "turnDegree": 0,
       "forwardDistance": 1,
       "sidewaysDistance": 1,
-      "image": "require(\"../assets/BasicForwardStep.png\")",
       "draggable": "false"
     },
     {
@@ -43,51 +40,46 @@
       "turnDegree": 0,
       "forwardDistance": -1,
       "sidewaysDistance": -1,
-      "image": "require(\"../assets/BasicBackWardStep.png\")",
       "draggable": "false"
     },
     {
-      "id": 1,
+      "id": 5,
       "name": "Basic Forward Step",
       "startDegree": 0,
       "endDegree": 0,
       "turnDegree": 0,
       "forwardDistance": 1,
       "sidewaysDistance": 1,
-      "image": "require(\"../assets/BasicForwardStep.png\")",
       "draggable": "false"
     },
     {
-      "id": 2,
+      "id": 6,
       "name": "Basic Backward Step",
       "startDegree": 0,
       "endDegree": 0,
       "turnDegree": 0,
       "forwardDistance": -1,
       "sidewaysDistance": -1,
-      "image": "require(\"../assets/BasicBackWardStep.png\")",
       "draggable": "false"
     },
     {
-      "id": 3,
+      "id": 7,
       "name": "Basic Forward Step",
       "startDegree": 0,
       "endDegree": 0,
       "turnDegree": 0,
       "forwardDistance": 1,
       "sidewaysDistance": 1,
-      "image": "require(\"../assets/BasicForwardStep.png\")",
       "draggable": "false"
     },
     {
-      "id": 4,
+      "id": 8,
       "name": "Basic Backward Step",
       "startDegree": 0,
       "endDegree": 0,
       "turnDegree": 0,
       "forwardDistance": -1,
       "sidewaysDistance": -1,
-      "image": "require(\"../assets/BasicBackWardStep.png\")",
       "draggable": "false"
     }
   ]
