@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Button, Badge } from "react-bootstrap";
 import Counters from "./counters";
 import Floor from "./floor";
 import Edit from "./edit";
@@ -12,9 +12,17 @@ class LayOut extends Component {
     floorWidth: 640,
     floorHeight: 400,
     floorLeft: 155,
+    stepWidth: 40,
+    stepHeight: 40,
+    zoomRate: 1.1,
+    zoomCount: 0,
     stepCount: 0,
     floorSteps: []
   };
+  constructor(props) {
+    super(props);
+    this.handleLoad.bind(this);
+  }
 
   handleSave = () => {
     let fs = require("browserify-fs");
@@ -31,35 +39,37 @@ class LayOut extends Component {
   };
   handleLoad = () => {
     let fs = require("browserify-fs");
-    fs.readFile(FolderDirectory, "utf-8", function(err, data) {
-      console.log(data);
+    fs.readFile(FolderDirectory, "utf-8", (err, data) => {
+      //console.log(data);
 
       const floor = JSON.parse(data);
-      console.log(floor);
+      //console.log(floor);
+      this.setState({
+        floorWidth: floor.floorWidth,
+        floorHeight: floor.floorHeight,
+        floorLeft: floor.floorLeft,
+        stepWidth: floor.stepWidth,
+        stepHeight: floor.stepHeight,
+        zoomCount: floor.zoomCount,
+        zoomRate: floor.zoomRate,
+        floorSteps: floor.floorSteps
+      });
       return floor;
     });
   };
-  /*   handleDrag = (id, e, ui) => {
-    console.log(id);
-    const { x, y } = this.floorSteps.filter(
-      step => "#floor" + step.id === id
-    ).deltaPosition;
+
+  handleUpload = file => {};
+
+  handlePosition = (id, position) => {
+    const { x, y } = position;
     if (id.includes("floor"))
       return this.setState(prevState => ({
         floorSteps: prevState.floorSteps.map(step =>
-          "#floor" + step.id === id
-            ? {
-                ...step,
-                deltaPosition: {
-                  x: x + ui.deltaX,
-                  y: y + ui.deltaY
-                }
-              }
-            : step
+          "#floor" + step.id === id ? { ...step, position: { x, y } } : step
         )
       }));
     else return null;
-  }; */
+  };
 
   handleHighlighted = id => {
     if (id.includes("floor"))
@@ -72,6 +82,7 @@ class LayOut extends Component {
       }));
     else return null;
   };
+
   handleAddStep = (newStep, token) => {
     const {
       name,
@@ -79,8 +90,7 @@ class LayOut extends Component {
       endDegree,
       turnDegree,
       forwardDistance,
-      sidewaysDistance,
-      image
+      sidewaysDistance
     } = newStep;
     if (token.includes("counter")) {
       this.setState(prevState => ({
@@ -95,7 +105,6 @@ class LayOut extends Component {
             turnDegree,
             forwardDistance,
             sidewaysDistance,
-            image,
             true
           )
         ]
@@ -129,17 +138,23 @@ class LayOut extends Component {
 
   handleZoomIn = () => {
     let style = { ...this.state };
-    style.floorWidth += 20;
-    style.floorHeight += 20;
-    style.floorLeft -= 10;
+    style.zoomCount += 1;
+    style.floorWidth *= style.zoomRate;
+    style.floorHeight *= style.zoomRate;
+    style.floorLeft -= (style.floorWidth - this.state.floorWidth) / 2;
+    style.stepWidth *= style.zoomRate;
+    style.stepHeight *= style.zoomRate;
     this.setState(style);
   };
 
   handleZoomOut = () => {
     let style = { ...this.state };
-    style.floorWidth -= 20;
-    style.floorHeight -= 20;
-    style.floorLeft += 10;
+    style.zoomCount -= 1;
+    style.floorWidth /= style.zoomRate;
+    style.floorHeight /= style.zoomRate;
+    style.floorLeft -= (style.floorWidth - this.state.floorWidth) / 2;
+    style.stepWidth /= style.zoomRate;
+    style.stepHeight /= style.zoomRate;
     this.setState(style);
   };
 
@@ -165,13 +180,26 @@ class LayOut extends Component {
 
   handleWidthSelect = value => {
     this.setState({
-      floorWidth: value * 40,
-      floorLeft: (950 - value * 40) / 2
+      floorWidth:
+        value *
+        this.state.stepWidth *
+        Math.pow(this.state.zoomRate, this.state.zoomCount),
+      floorLeft:
+        (950 -
+          value *
+            this.state.stepWidth *
+            Math.pow(this.state.zoomRate, this.state.zoomCount)) /
+        2
     });
   };
 
   handleHeightSelect = value => {
-    this.setState({ floorHeight: value * 40 });
+    this.setState({
+      floorHeight:
+        value *
+        this.state.stepHeight *
+        Math.pow(this.state.zoomRate, this.state.zoomCount)
+    });
   };
 
   render() {
@@ -186,13 +214,20 @@ class LayOut extends Component {
         </Col>
         <Col className="Col-2" xs={6}>
           <Floor
-            floorWidth={this.state.floorWidth}
-            floorHeight={this.state.floorHeight}
-            floorLeft={this.state.floorLeft}
-            floorSteps={this.state.floorSteps}
+            floor={this.state}
             onAddStep={this.handleAddStep}
             onHighlighted={this.handleHighlighted}
+            onPosition={this.handlePosition}
           />
+          <Button variant="Info">
+            Zoom{" "}
+            <Badge variant="light">
+              {Math.round(
+                Math.pow(this.state.zoomRate, this.state.zoomCount) * 100
+              )}
+              %<span className="sr-only">Zoom in percentage</span>
+            </Badge>
+          </Button>
         </Col>
         <Col className="Col-3">
           <Edit

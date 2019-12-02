@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Accordion, Card } from "react-bootstrap";
 import StepCard from "./card";
 import WaltzSteps from "../files/waltzSteps.json";
+import Images from "../files/images";
 
 class Counters extends Component {
   state = {
@@ -10,6 +11,10 @@ class Counters extends Component {
       { id: 2, name: "Tango" },
       { id: 3, name: "Quick-step" }
     ]
+  };
+
+  handleImage = name => {
+    return Images.adata.Waltz.filter(step => step.name === name)[0].image;
   };
 
   render() {
@@ -22,14 +27,14 @@ class Counters extends Component {
             </Accordion.Toggle>
             <Accordion.Collapse eventKey="0">
               <Card.Body>
-                <Accordion className="Dances">
+                <Accordion className="Dances" defaultActiveKey="0">
                   <Card>
                     <Accordion.Toggle as={Card.Header} eventKey="0">
                       Standard
                     </Accordion.Toggle>
                     <Accordion.Collapse eventKey="0">
                       <Card.Body>
-                        <Accordion>
+                        <Accordion defaultActiveKey="0">
                           <Card className="CounterRow">
                             <Accordion.Toggle as={Card.Header} eventKey="0">
                               Waltz
@@ -40,6 +45,7 @@ class Counters extends Component {
                                   <StepCard
                                     id={"#counter" + step.id}
                                     key={step.id}
+                                    image={this.handleImage(step.name)}
                                     step={step}
                                     onAddStep={this.props.onAddStep}
                                     onHighlighted={this.props.onHighlighted}

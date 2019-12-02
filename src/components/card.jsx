@@ -8,7 +8,7 @@ class StepCard extends Component {
         <Card.Img
           className="stepCard-img"
           variant="top"
-          src={this.props.step.image}
+          src={this.props.image}
           style={{
             width: "80px",
             height: "80px",
@@ -34,7 +34,6 @@ class StepCard extends Component {
             }}
             onClick={() => {
               this.props.onAddStep(this.props.step, this.props.id);
-              console.log(this.props.step);
             }}
           >
             Add step

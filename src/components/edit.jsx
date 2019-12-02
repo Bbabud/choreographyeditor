@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Container, Button, Card, Accordion, Alert } from "react-bootstrap";
-import Load from "./load";
+import Upload from "./upload";
+import Download from "./download";
 
 class Edit extends Component {
   state = {
@@ -27,7 +28,7 @@ class Edit extends Component {
 
   render() {
     return (
-      <Container>
+      <React.Fragment>
         <Accordion defaultActiveKey="0">
           <Card>
             <Accordion.Toggle as={Card.Header} eventKey="0">
@@ -35,7 +36,7 @@ class Edit extends Component {
             </Accordion.Toggle>
             <Accordion.Collapse eventKey="0">
               <Card.Body>
-                <Accordion>
+                <Accordion defaultActiveKey="1">
                   <Card>
                     <Accordion.Toggle as={Card.Header} eventKey="0">
                       Step editor
@@ -102,7 +103,7 @@ class Edit extends Component {
                           Save
                         </Button>{" "}
                         <Button
-                          onClick={this.props.onLoad}
+                          onClick={() => this.props.onLoad}
                           className="btn btn-secondary btn-sm"
                         >
                           Load
@@ -204,7 +205,8 @@ class Edit extends Component {
                     <Accordion.Collapse eventKey="2">
                       <Card.Body>
                         {" "}
-                        <Load />
+                        <Upload onUpload={this.props.onLoad} />
+                        <Download />
                       </Card.Body>
                     </Accordion.Collapse>
                   </Card>
@@ -218,7 +220,7 @@ class Edit extends Component {
           {" "}
           {this.sizeQualification()}
         </Container>
-      </Container>
+      </React.Fragment>
     );
   }
 }

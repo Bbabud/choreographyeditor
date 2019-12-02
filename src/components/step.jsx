@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Container } from "react-bootstrap";
 import Draggable from "react-draggable";
+import Images from "../files/images";
 
 class Step extends Component {
   state = {
@@ -13,29 +14,14 @@ class Step extends Component {
     sidewaysDistance: 1,
     image: "",
     draggable: false, */
-    highlighted: false,
     activeDrags: 0,
-    deltaPosition: {
+    controlledPosition: {
       x: 0,
       y: 0
-    } /* 
-    controlledPosition: {
-      x: -400,
-      y: 200
-    } */
+    }
   };
 
-  constructor(
-    id,
-    name,
-    startDegree,
-    endDegree,
-    turnDegree,
-    fD,
-    sD,
-    img,
-    draggable
-  ) {
+  constructor(id, name, startDegree, endDegree, turnDegree, fD, sD, draggable) {
     super();
     this.id = id;
     this.name = name;
@@ -44,60 +30,77 @@ class Step extends Component {
     this.turnDegree = turnDegree;
     this.forwardDistance = fD;
     this.sidewaysDistance = sD;
-    this.image = img;
     this.draggable = draggable;
   }
 
   handleHighlightedColor(step) {
     return step.highlighted ? "rgba(244,151,151,0.6)" : "transparent";
   }
-  /*   handleDisabled = () => {
-    this.setState({ isClicked: !this.state.isClicked });
-  }; */
 
-  handleDrag = (e, ui) => {
-    const { x, y } = this.state.deltaPosition;
-    this.setState({
-      deltaPosition: {
-        x: x + ui.deltaX,
-        y: y + ui.deltaY
-      }
-    });
-    console.log(this.state);
-  };
-  handleStart = () => {
+  onStart = () => {
     this.setState(prevState => ({
       activeDrags: ++prevState.activeDrags
     }));
   };
 
-  handleStop = () => {
+  onStop = () => {
     this.setState(prevState => ({
       activeDrags: --prevState.activeDrags
     }));
   };
 
+  handleImage = name => {
+    return Images.adata.Waltz.filter(step => step.name === name)[0].image;
+  };
+
+  onControlledDrag = (e, position) => {
+    const { x, y } = position;
+    this.setState({ controlledPosition: { x, y } });
+  };
+
+  handleState = () => {
+    this.props.onPosition(this.props.id, this.state.controlledPosition);
+    this.onStop();
+  };
+
+  handleControlledPosition = () => {
+    if (this.props.step.position !== undefined) {
+      const { x, y } = this.props.step.position;
+      this.setState({ controlledPosition: { x, y } });
+    }
+    this.onStart();
+  };
+
   render() {
-    const dragHandlers = { onStart: this.onStart, onStop: this.onStop };
+    /* const dragHandlers = { onStart: this.onStart, onStop: this.onStop }; */
+    const { stepWidth, stepHeight } = this.props.floor;
     return (
       <Draggable
         disabled={!this.props.step.draggable}
-        grid={[25, 25]}
+        grid={[stepWidth / 2, stepHeight / 2]}
         bounds="parent"
-        {...dragHandlers}
-        onDrag={this.handleDrag}
-        onStart={this.handleStart}
-        onStop={this.handleStop}
+        /* {...dragHandlers} */
+        onStart={this.handleControlledPosition}
+        position={this.props.step.position}
+        onDrag={this.onControlledDrag}
+        onStop={this.handleState}
       >
-        <div className="stepBox">
+        <div
+          className="stepBox"
+          style={{
+            width: stepWidth,
+            height: stepHeight
+          }}
+        >
           <Container
             id={this.props.id}
             className="DndStep"
             style={{
-              height: 50,
-              width: 50,
-              backgroundImage: "url(" + this.props.step.image + ")",
-              backgroundSize: "50px 50px",
+              height: stepHeight,
+              width: stepWidth,
+              backgroundImage:
+                "url(" + this.handleImage(this.props.step.name) + ")",
+              backgroundSize: `${stepWidth}px ${stepHeight}px`,
               backgroundColor: this.handleHighlightedColor(this.props.step),
               transform: `rotate(${this.props.step.startDegree}deg)`
             }}
