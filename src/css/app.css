@@ -55,10 +55,18 @@ body {
   padding: 0;
 }
 
-.Col-1 {
-  position: absolute;
+.Col-1.col {
+  position: relative;
   overflow: auto;
   max-height: inherit;
+  margin: 0;
+  padding: 0;
+}
+.Col-3.col {
+  position: relative;
+  overflow: auto;
+  max-height: inherit;
+  margin: 0;
   padding: 0;
 }
 
@@ -83,6 +91,10 @@ body {
   border-style: solid;
 }
 
+.DanceFloor.container {
+  padding: 0px;
+}
+
 .Dances {
   background-color: transparent;
   color: black;
@@ -99,15 +111,14 @@ body {
 
 .DndStep {
   background-color: transparent;
+  background-repeat: no-repeat;
   padding: 0px;
   margin: 0px;
 }
 
 .stepBox {
-  width: 50px;
-  height: 50px;
-  margin: 5px;
-  padding: 5px;
+  margin: 0px;
+  padding: 0px;
   float: left;
 }
 .stepCard {
@@ -115,12 +126,12 @@ body {
   width: 8rem;
   height: 16rem;
   padding: 5px;
-  margin: auto;
+  margin: 2px;
   float: left;
 }
 
 .card-body {
-  padding: 5px !important;
+  padding: 9px !important;
 }
 
 /* TODO
