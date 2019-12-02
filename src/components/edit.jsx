@@ -221,6 +221,7 @@ class Edit extends Component {
           {this.sizeQualification()}
         </Container>
       </React.Fragment>
+
     );
   }
 }

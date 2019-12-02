@@ -4,6 +4,7 @@ import StepCard from "./card";
 import WaltzSteps from "../files/waltzSteps.json";
 import Images from "../files/images";
 
+
 class Counters extends Component {
   state = {
     danceTypes: [
@@ -12,6 +13,7 @@ class Counters extends Component {
       { id: 3, name: "Quick-step" }
     ]
   };
+
 
   handleImage = name => {
     return Images.adata.Waltz.filter(step => step.name === name)[0].image;
@@ -80,6 +82,7 @@ class Counters extends Component {
           </Card>
         </Accordion>
       </React.Fragment>
+
     );
   }
 }

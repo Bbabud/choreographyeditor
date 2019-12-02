@@ -1,7 +1,5 @@
 import React from "react";
 
-//drag&drop from counter to floor, i prefer this card-button solution
-
 function Board(props) {
   const drop = e => {
     e.preventDefault();

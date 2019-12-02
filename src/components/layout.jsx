@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import { Row, Col, Button, Badge } from "react-bootstrap";
 import Counters from "./counters";
 import Floor from "./floor";
@@ -7,10 +8,12 @@ import Step from "./step";
 import nextId from "react-id-generator";
 import FolderDirectory from "../files/floor.json";
 
+
 class LayOut extends Component {
   state = {
     floorWidth: 640,
     floorHeight: 400,
+
     floorLeft: 155,
     stepWidth: 40,
     stepHeight: 40,
@@ -134,31 +137,37 @@ class LayOut extends Component {
 
   handleClearFloor = () => {
     this.setState({ floorSteps: [] });
+
   };
 
   handleZoomIn = () => {
     let style = { ...this.state };
+
     style.zoomCount += 1;
     style.floorWidth *= style.zoomRate;
     style.floorHeight *= style.zoomRate;
     style.floorLeft -= (style.floorWidth - this.state.floorWidth) / 2;
     style.stepWidth *= style.zoomRate;
     style.stepHeight *= style.zoomRate;
+
     this.setState(style);
   };
 
   handleZoomOut = () => {
     let style = { ...this.state };
+
     style.zoomCount -= 1;
     style.floorWidth /= style.zoomRate;
     style.floorHeight /= style.zoomRate;
     style.floorLeft -= (style.floorWidth - this.state.floorWidth) / 2;
     style.stepWidth /= style.zoomRate;
     style.stepHeight /= style.zoomRate;
+
     this.setState(style);
   };
 
   handleRotateRight = () => {
+
     this.setState(prevState => ({
       floorSteps: prevState.floorSteps.map(step =>
         step.highlighted
@@ -207,6 +216,7 @@ class LayOut extends Component {
       <Row className="Surface">
         <Col className="Col-1">
           {" "}
+
           <Counters
             onAddStep={this.handleAddStep}
             onHighlighted={this.handleHighlighted}

@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+
 import { Container } from "react-bootstrap";
 import Step from "./step";
 
 class Floor extends Component {
   render() {
     const { floorWidth, floorHeight, floorLeft, floorSteps } = this.props.floor;
+
     return (
       <Container
         className="DanceFloor"
@@ -26,6 +28,7 @@ class Floor extends Component {
             onPosition={this.props.onPosition}
           />
         ))}
+
       </Container>
     );
   }

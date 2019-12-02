@@ -3,7 +3,6 @@ import Menu from "./components/navbar";
 import LayOut from "./components/layout";
 import "./css/app.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Step from "./components/step";
 
 class App extends Component {
   render() {

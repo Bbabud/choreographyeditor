@@ -1,5 +1,7 @@
+
 import React from "react";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+
 
 //stateless functional component
 const NavBar = ({ totalCounters }) => {
